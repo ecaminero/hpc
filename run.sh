@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #SBATCH -p grimapartition         # partition (queue)
-#SBATCH -N 3                      # number of nodes
+#SBATCH -N 5                      # number of nodes
 #SBATCH -n 3                      # number of cores
 #SBATCH -t 0-2:00                 # time (D-HH:MM)
 #SBATCH -o slurm.%N.%j.out        # STDOUT
@@ -36,6 +36,9 @@ for image in "${IMAGE_LIST[@]}"; do
 done
 END=$(date +%s.%N)
 
-echo Finished on $HOST at $(echo "$END - $START" | bc)
+TIME_EXE=$(echo "$END - $START" | bc)
+echo Finished on $HOST at $TIME_EXE
 
-# how to run sbatch -w caleuche run.sh
+echo Finished on $HOST with $NUM_THREADS at $TIME_EXE >> ./executionTime.txt
+
+# run$ sbatch -w caleuche run.sh
